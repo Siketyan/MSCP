@@ -105,6 +105,27 @@ namespace Minecraft_Server_Control_Panel
             }
         }
 
+        public void ConsoleChanged(string text)
+        {
+            if (Regex.IsMatch(text, @"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\][A-Za-z0-9 \[\]/]+INFO\]: [a-zA-Z0-9]+\[/[0-9\.]+:[0-9]+\] logged in with entity id [0-9]+ at \(.+\)$"))
+            {
+                Regex reg = new Regex(@"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\][A-Za-z0-9 \[\]/]+INFO\]: (?<ID>[a-zA-Z0-9]+)\[/(?<IP>[0-9\.]+):[0-9]+\] logged in with entity id [0-9]+ at \(.+\)$");
+                Match m = reg.Match(text);
+                Avatar[m.Groups["ID"].Value] = new ClassAvatar();
+                this.UserList.Items.Add(m.Groups["ID"].Value);
+                this.AsyncGetAvatar(m.Groups["ID"].Value);
+                Avatar[m.Groups["ID"].Value].ip_update(m.Groups["IP"].Value);
+            }
+            if (Regex.IsMatch(text, @"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\][A-Za-z0-9 \[\]/]+INFO\]: [a-zA-Z0-9]+ left the game$"))
+            {
+                Regex reg = new Regex(@"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\][A-Za-z0-9 \[\]/]+INFO\]: (?<ID>[a-zA-Z0-9]+?) left the game$");
+                Match m = reg.Match(text);
+                this.UserList.Items.Remove(m.Groups["ID"].Value);
+                Avatar.Remove(m.Groups["ID"].Value);
+            }
+            this.Console.Items.Add(text);
+        }
+
         private class ClassAvatar
         {
             public bool is_enable { get; private set; } = false;
@@ -198,6 +219,23 @@ namespace Minecraft_Server_Control_Panel
             }
 
             e.DrawFocusRectangle();
+        }
+
+        public void PerformanceUpdate(string cpu, string mem, string vmem)
+        {
+            LabelPerformance.Text = "CPU: " + cpu + Environment.NewLine + "メモリ: " + mem + Environment.NewLine + "仮想メモリ: " + vmem;
+        }
+
+        private void ServerStart(object sender, EventArgs e)
+        {
+            Console.Items.Clear();
+            ServerControl.ServerStart();
+        }
+
+        private void ServerStop(object sender, EventArgs e)
+        {
+            RibbonPanelStop.Enabled = false;
+            ServerControl.ConsoleWrite("stop");
         }
     }
 }

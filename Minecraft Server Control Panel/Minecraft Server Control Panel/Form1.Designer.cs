@@ -97,8 +97,10 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.UserList = new System.Windows.Forms.ListBox();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.Console = new System.Windows.Forms.ListBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.PanelPerformance = new System.Windows.Forms.Panel();
+            this.LabelPerformance = new System.Windows.Forms.Label();
             this.Ribbon.SuspendLayout();
             this.RibbonPageTools.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -140,6 +142,7 @@
             this.RibbonTabs.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.PanelPerformance.SuspendLayout();
             this.SuspendLayout();
             // 
             // Ribbon
@@ -770,6 +773,7 @@
             this.RibbonPanelStop.Name = "RibbonPanelStop";
             this.RibbonPanelStop.Size = new System.Drawing.Size(48, 74);
             this.RibbonPanelStop.TabIndex = 3;
+            this.RibbonPanelStop.Click += new System.EventHandler(this.ServerStop);
             this.RibbonPanelStop.MouseEnter += new System.EventHandler(this.RibbonPanelMouseIn);
             this.RibbonPanelStop.MouseLeave += new System.EventHandler(this.RibbonPanelMouseOut);
             // 
@@ -783,6 +787,7 @@
             this.RibbonImageStop.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.RibbonImageStop.TabIndex = 0;
             this.RibbonImageStop.TabStop = false;
+            this.RibbonImageStop.Click += new System.EventHandler(this.ServerStop);
             this.RibbonImageStop.MouseEnter += new System.EventHandler(this.RibbonImageMouseIn);
             this.RibbonImageStop.MouseLeave += new System.EventHandler(this.RibbonImageMouseOut);
             // 
@@ -796,6 +801,7 @@
             this.RibbonLabelStop.TabIndex = 1;
             this.RibbonLabelStop.Text = "停止";
             this.RibbonLabelStop.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.RibbonLabelStop.Click += new System.EventHandler(this.ServerStop);
             this.RibbonLabelStop.MouseEnter += new System.EventHandler(this.RibbonLabelMouseIn);
             this.RibbonLabelStop.MouseLeave += new System.EventHandler(this.RibbonLabelMouseOut);
             // 
@@ -807,6 +813,7 @@
             this.RibbonPanelStart.Name = "RibbonPanelStart";
             this.RibbonPanelStart.Size = new System.Drawing.Size(48, 74);
             this.RibbonPanelStart.TabIndex = 2;
+            this.RibbonPanelStart.Click += new System.EventHandler(this.ServerStart);
             this.RibbonPanelStart.MouseEnter += new System.EventHandler(this.RibbonPanelMouseIn);
             this.RibbonPanelStart.MouseLeave += new System.EventHandler(this.RibbonPanelMouseOut);
             // 
@@ -821,6 +828,7 @@
             this.RibbonImageStart.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.RibbonImageStart.TabIndex = 0;
             this.RibbonImageStart.TabStop = false;
+            this.RibbonImageStart.Click += new System.EventHandler(this.ServerStart);
             this.RibbonImageStart.MouseEnter += new System.EventHandler(this.RibbonImageMouseIn);
             this.RibbonImageStart.MouseLeave += new System.EventHandler(this.RibbonImageMouseOut);
             // 
@@ -834,6 +842,7 @@
             this.RibbonLabelStart.TabIndex = 1;
             this.RibbonLabelStart.Text = "起動";
             this.RibbonLabelStart.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.RibbonLabelStart.Click += new System.EventHandler(this.ServerStart);
             this.RibbonLabelStart.MouseEnter += new System.EventHandler(this.RibbonLabelMouseIn);
             this.RibbonLabelStart.MouseLeave += new System.EventHandler(this.RibbonLabelMouseOut);
             // 
@@ -890,6 +899,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.PanelPerformance);
             this.panel1.Controls.Add(this.UserList);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 136);
@@ -913,7 +923,7 @@
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.Black;
-            this.panel3.Controls.Add(this.listBox1);
+            this.panel3.Controls.Add(this.Console);
             this.panel3.Controls.Add(this.textBox1);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(207, 136);
@@ -921,20 +931,20 @@
             this.panel3.Size = new System.Drawing.Size(638, 427);
             this.panel3.TabIndex = 2;
             // 
-            // listBox1
+            // Console
             // 
-            this.listBox1.BackColor = System.Drawing.Color.Black;
-            this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox1.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listBox1.ForeColor = System.Drawing.Color.White;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 17;
-            this.listBox1.Location = new System.Drawing.Point(0, 0);
-            this.listBox1.Margin = new System.Windows.Forms.Padding(0);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(638, 401);
-            this.listBox1.TabIndex = 1;
+            this.Console.BackColor = System.Drawing.Color.Black;
+            this.Console.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.Console.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Console.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Console.ForeColor = System.Drawing.Color.White;
+            this.Console.FormattingEnabled = true;
+            this.Console.ItemHeight = 17;
+            this.Console.Location = new System.Drawing.Point(0, 0);
+            this.Console.Margin = new System.Windows.Forms.Padding(0);
+            this.Console.Name = "Console";
+            this.Console.Size = new System.Drawing.Size(638, 401);
+            this.Console.TabIndex = 1;
             // 
             // textBox1
             // 
@@ -948,6 +958,25 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(638, 26);
             this.textBox1.TabIndex = 0;
+            // 
+            // PanelPerformance
+            // 
+            this.PanelPerformance.Controls.Add(this.LabelPerformance);
+            this.PanelPerformance.Dock = System.Windows.Forms.DockStyle.Top;
+            this.PanelPerformance.Location = new System.Drawing.Point(0, 0);
+            this.PanelPerformance.Name = "PanelPerformance";
+            this.PanelPerformance.Size = new System.Drawing.Size(207, 95);
+            this.PanelPerformance.TabIndex = 1;
+            // 
+            // LabelPerformance
+            // 
+            this.LabelPerformance.AutoSize = true;
+            this.LabelPerformance.Font = new System.Drawing.Font("Yu Gothic UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.LabelPerformance.Location = new System.Drawing.Point(15, 17);
+            this.LabelPerformance.Name = "LabelPerformance";
+            this.LabelPerformance.Size = new System.Drawing.Size(113, 60);
+            this.LabelPerformance.TabIndex = 0;
+            this.LabelPerformance.Text = "CPU: 0%\r\nメモリ: 0 MB\r\n仮想メモリ: 0 MB";
             // 
             // Form1
             // 
@@ -1015,6 +1044,8 @@
             this.panel1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.PanelPerformance.ResumeLayout(false);
+            this.PanelPerformance.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1088,9 +1119,11 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox Console;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.ListBox UserList;
+        private System.Windows.Forms.Panel PanelPerformance;
+        private System.Windows.Forms.Label LabelPerformance;
     }
 }
 
