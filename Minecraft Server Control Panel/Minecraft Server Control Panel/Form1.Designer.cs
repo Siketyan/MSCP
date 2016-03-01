@@ -95,7 +95,7 @@
             this.RibbonTabPlayer = new System.Windows.Forms.Label();
             this.RibbonTabServer = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.listBox2 = new System.Windows.Forms.ListBox();
+            this.UserList = new System.Windows.Forms.ListBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -890,25 +890,25 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.listBox2);
+            this.panel1.Controls.Add(this.UserList);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 136);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(207, 427);
             this.panel1.TabIndex = 1;
             // 
-            // listBox2
+            // UserList
             // 
-            this.listBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.listBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.ItemHeight = 32;
-            this.listBox2.Location = new System.Drawing.Point(0, 0);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(207, 427);
-            this.listBox2.TabIndex = 0;
-            this.listBox2.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.UserListDraw);
+            this.UserList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.UserList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.UserList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.UserList.FormattingEnabled = true;
+            this.UserList.ItemHeight = 32;
+            this.UserList.Location = new System.Drawing.Point(0, 0);
+            this.UserList.Name = "UserList";
+            this.UserList.Size = new System.Drawing.Size(207, 427);
+            this.UserList.TabIndex = 0;
+            this.UserList.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.UserListDraw);
             // 
             // panel3
             // 
@@ -1090,7 +1090,7 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.ListBox UserList;
     }
 }
 

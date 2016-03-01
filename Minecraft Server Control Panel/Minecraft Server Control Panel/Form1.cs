@@ -3,28 +3,19 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Minecraft_Server_Control_Panel
 {
     public partial class Form1 : Form
     {
-        const int ImageSpace = 3;
-
-        Image CreateAvatar(Image image, int w, int h)
-        {
-            float fw = (float)w / (float)image.Width;
-            float fh = (float)h / (float)image.Height;
-
-            float scale = Math.Min(fw, fh);
-            int nw = (int)(image.Width * scale);
-            int nh = (int)(image.Height * scale);
-
-            return new Bitmap(image, nw, nh);
-        }
-
         public Form1()
         {
             InitializeComponent();
@@ -114,15 +105,98 @@ namespace Minecraft_Server_Control_Panel
             }
         }
 
+        private class ClassAvatar
+        {
+            public bool is_enable { get; private set; } = false;
+            public byte[] data { get; private set; }
+            public string ip { get; private set; } = "";
+            public bool data_update(byte[] input_data)
+            {
+                if (!is_enable)
+                {
+                    data = input_data;
+                    is_enable = true;
+                    return true;
+                }
+                return false;
+            }
+            public bool ip_update(string input_data)
+            {
+                if (ip == "")
+                {
+                    ip = input_data;
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        Dictionary<string, ClassAvatar> Avatar = new Dictionary<string, ClassAvatar>();
+
+        async private void AsyncGetAvatar(string id)
+        {
+            //string filename = Program.directory_path + @"\common\image_cache\" + id + @".png";
+            Uri u = new Uri(@"https://minotar.net/avatar/" + id + @"/32.png");
+            await Task.Run(() =>
+            {
+                using (System.Net.WebClient wc = new System.Net.WebClient())
+                {
+                    wc.Headers.Add("User-Agent", "Minecraft Server Control Panel");
+                    Avatar[id].data_update(wc.DownloadData(u));
+                }
+            });
+            this.UserList.Refresh();
+        }
+
         private void UserListDraw(object sender, DrawItemEventArgs e)
         {
-            if (e.Index == -1) return;
             e.DrawBackground();
-            Image Avatar = (Image)listBox1.Items[e.Index];
-            e.Graphics.DrawImage(Avatar,
-                e.Bounds.X + (e.Bounds.Width - Avatar.Width) / 2,
-                e.Bounds.Y + (e.Bounds.Height - Avatar.Height) / 2);
-            e.Graphics.DrawString("文字", e.Font, Brushes.Red, 48, 16 + Avatar.Height);
+
+            if (e.Index > -1)
+            {
+                Brush b = null;
+
+                if ((e.State & DrawItemState.Selected) != DrawItemState.Selected)
+                {
+                    b = new SolidBrush(Color.Black);
+                }
+                else
+                {
+                    b = new SolidBrush(e.ForeColor);
+                }
+
+                string id = ((ListBox)sender).Items[e.Index].ToString();
+                string ip = "";
+                Image img = null;
+                if (Avatar[id].is_enable)
+                {
+                    using (MemoryStream ms = new MemoryStream(Avatar[id].data))
+                    {
+                        img = Image.FromStream(ms);
+                    }
+                    ip += (" - " + Avatar[id].ip);
+                }
+                else
+                {
+                    Assembly assembly = Assembly.GetExecutingAssembly();
+                    using (Stream s = assembly.GetManifestResourceStream("MinecraftServerManagementSystem.resource.head.png"))
+                    {
+                        img = Image.FromStream(s);
+                    }
+                    ip += (" - ***.***.***.***");
+                }
+                e.Graphics.DrawImage(img, 0, e.Bounds.Bottom - 32, img.Width, img.Height);
+
+                e.Graphics.DrawString(id, e.Font, b, 37, e.Bounds.Bottom - 31);
+                e.Graphics.DrawString(ip, e.Font, b, 37, e.Bounds.Bottom - 12);
+
+                Pen p = new Pen(Color.Black, 1);
+                e.Graphics.DrawRectangle(p, -1, e.Bounds.Bottom - 33, e.Bounds.Size.Width + 1, e.Bounds.Size.Height);
+
+
+                b.Dispose();
+            }
+
             e.DrawFocusRectangle();
         }
     }
