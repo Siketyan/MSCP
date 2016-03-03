@@ -22,5 +22,65 @@ namespace Minecraft_Server_Control_Panel.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files\\Java\\jre1.8.0_73\\bin\\java.exe")]
+        public string JavaPath {
+            get {
+                return ((string)(this["JavaPath"]));
+            }
+            set {
+                this["JavaPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("256M")]
+        public string Xmx {
+            get {
+                return ((string)(this["Xmx"]));
+            }
+            set {
+                this["Xmx"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("128M")]
+        public string Xms {
+            get {
+                return ((string)(this["Xms"]));
+            }
+            set {
+                this["Xms"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\Siketyan\\Desktop\\server\\spigot.jar")]
+        public string JarPath {
+            get {
+                return ((string)(this["JarPath"]));
+            }
+            set {
+                this["JarPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool IsBukkit {
+            get {
+                return ((bool)(this["IsBukkit"]));
+            }
+            set {
+                this["IsBukkit"] = value;
+            }
+        }
     }
 }

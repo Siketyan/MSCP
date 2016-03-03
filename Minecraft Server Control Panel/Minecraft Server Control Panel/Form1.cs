@@ -26,6 +26,20 @@ namespace Minecraft_Server_Control_Panel
 
         }
 
+        public void ButtonSetStart()
+        {
+            RibbonPanelStart.Enabled = false;
+            RibbonPanelStop.Enabled = true;
+            RibbonPanelRestart.Enabled = true;
+        }
+
+        public void ButtonSetStop()
+        {
+            RibbonPanelStart.Enabled = true;
+            RibbonPanelStop.Enabled = false;
+            RibbonPanelRestart.Enabled = false;
+        }
+
         private void RibbonPanelMouseIn(object sender, EventArgs e)
         {
             ((Panel)sender).BackColor = Color.DeepSkyBlue;
@@ -112,18 +126,19 @@ namespace Minecraft_Server_Control_Panel
                 Regex reg = new Regex(@"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\][A-Za-z0-9 \[\]/]+INFO\]: (?<ID>[a-zA-Z0-9]+)\[/(?<IP>[0-9\.]+):[0-9]+\] logged in with entity id [0-9]+ at \(.+\)$");
                 Match m = reg.Match(text);
                 Avatar[m.Groups["ID"].Value] = new ClassAvatar();
-                this.UserList.Items.Add(m.Groups["ID"].Value);
-                this.AsyncGetAvatar(m.Groups["ID"].Value);
+                UserList.Items.Add(m.Groups["ID"].Value);
+                AsyncGetAvatar(m.Groups["ID"].Value);
                 Avatar[m.Groups["ID"].Value].ip_update(m.Groups["IP"].Value);
             }
             if (Regex.IsMatch(text, @"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\][A-Za-z0-9 \[\]/]+INFO\]: [a-zA-Z0-9]+ left the game$"))
             {
                 Regex reg = new Regex(@"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\][A-Za-z0-9 \[\]/]+INFO\]: (?<ID>[a-zA-Z0-9]+?) left the game$");
                 Match m = reg.Match(text);
-                this.UserList.Items.Remove(m.Groups["ID"].Value);
+                UserList.Items.Remove(m.Groups["ID"].Value);
                 Avatar.Remove(m.Groups["ID"].Value);
             }
-            this.Console.Items.Add(text);
+            Console.Items.Add(text);
+            Console.TopIndex = Console.Items.Count - 1;
         }
 
         private class ClassAvatar
@@ -235,7 +250,53 @@ namespace Minecraft_Server_Control_Panel
         private void ServerStop(object sender, EventArgs e)
         {
             RibbonPanelStop.Enabled = false;
+            RibbonPanelRestart.Enabled = false;
             ServerControl.ConsoleWrite("stop");
+        }
+
+        private void ServerRestart(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ConsoleSend(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (CommandSender.Text == "stop")
+                {
+                    ServerStop(new object[]{}, new KeyEventArgs(Keys.Enter));
+                }
+            }
+        }
+
+        int SelectedPlayer = -1;
+
+        private void UserListSelected(object sender, EventArgs e)
+        {
+            Point p = Cursor.Position;
+            if (UserList.SelectedIndex != -1) SelectedPlayer = UserList.SelectedIndex;
+            UserList.SelectedIndex = -1;
+        }
+
+        private void OpenBANList(object sender, EventArgs e)
+        {
+
+        }
+
+        private void OpenOPList(object sender, EventArgs e)
+        {
+
+        }
+
+        private void OpenWhiteList(object sender, EventArgs e)
+        {
+
+        }
+
+        private void OpenConfig(object sender, EventArgs e)
+        {
+
         }
     }
 }

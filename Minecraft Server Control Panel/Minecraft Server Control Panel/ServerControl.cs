@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -19,8 +20,10 @@ namespace Minecraft_Server_Control_Panel
         {
             Environment.CurrentDirectory = Program.ProgramDirectory + @"\Server";
             Server = new Process();
-            Server.StartInfo = new ProcessStartInfo(""); // TODO: Javaパス設定をここに
-            Server.StartInfo.Arguments = "-Xms" + "" + " -Xmx" + "" + " -jar \"" + "" + "\" nogui"; // TODO: メモリ使用量・Jarパスをここに
+            Server.StartInfo = new ProcessStartInfo(Properties.Settings.Default.JavaPath);
+            Server.StartInfo.Arguments = "-Xms" + Properties.Settings.Default.Xms + 
+                " -Xmx" + Properties.Settings.Default.Xmx + 
+                " -jar \"" + Properties.Settings.Default.JarPath + "\" nogui";
             Server.StartInfo.UseShellExecute = false;
             Server.StartInfo.RedirectStandardInput = true;
             Server.StartInfo.RedirectStandardOutput = true;
@@ -39,12 +42,16 @@ namespace Minecraft_Server_Control_Panel
             Server.BeginErrorReadLine();
             ServerProcessID = Server.Id;
             ServerProcessCPU = new PerformanceCounter("Process", "% Processor Time", LookupInstance(ServerProcessID));
+            Program.App.ButtonSetStart();
             ServerRunning = true;
+            AsyncServerStop();
+            AsyncServerPerformance();
         }
 
         static async private void AsyncServerStop()
         {
             await Task.Run(() => { Server.WaitForExit(); });
+            Program.App.ButtonSetStop();
             ServerRunning = false;
             Server = null;
         }
@@ -58,6 +65,7 @@ namespace Minecraft_Server_Control_Panel
                 while (ServerRunning)
                 {
                     Program.App.Invoke(ServerPerformanceDLG, new object[] { GetServerCPU() + " %", GetServerRAM() + " MB", GetServerVRAM() + " MB" });
+                    Thread.Sleep(1000);
                 }
             });
             Program.App.Invoke(ServerPerformanceDLG, new object[] { "0 %", "0 MB", "0 MB" });

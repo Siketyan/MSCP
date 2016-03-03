@@ -95,12 +95,13 @@
             this.RibbonTabPlayer = new System.Windows.Forms.Label();
             this.RibbonTabServer = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.PanelUserList = new System.Windows.Forms.Panel();
             this.UserList = new System.Windows.Forms.ListBox();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.Console = new System.Windows.Forms.ListBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.PanelPerformance = new System.Windows.Forms.Panel();
             this.LabelPerformance = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.Console = new System.Windows.Forms.ListBox();
+            this.CommandSender = new System.Windows.Forms.TextBox();
             this.Ribbon.SuspendLayout();
             this.RibbonPageTools.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -141,8 +142,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.RibbonImageStart)).BeginInit();
             this.RibbonTabs.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.panel3.SuspendLayout();
+            this.PanelUserList.SuspendLayout();
             this.PanelPerformance.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // Ribbon
@@ -588,6 +590,7 @@
             this.RibbonPanelConfig.Name = "RibbonPanelConfig";
             this.RibbonPanelConfig.Size = new System.Drawing.Size(48, 74);
             this.RibbonPanelConfig.TabIndex = 4;
+            this.RibbonPanelConfig.Click += new System.EventHandler(this.OpenConfig);
             this.RibbonPanelConfig.MouseEnter += new System.EventHandler(this.RibbonPanelMouseIn);
             this.RibbonPanelConfig.MouseLeave += new System.EventHandler(this.RibbonPanelMouseOut);
             // 
@@ -601,6 +604,7 @@
             this.RibbonImageConfig.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.RibbonImageConfig.TabIndex = 0;
             this.RibbonImageConfig.TabStop = false;
+            this.RibbonImageConfig.Click += new System.EventHandler(this.OpenConfig);
             this.RibbonImageConfig.MouseEnter += new System.EventHandler(this.RibbonImageMouseIn);
             this.RibbonImageConfig.MouseLeave += new System.EventHandler(this.RibbonImageMouseOut);
             // 
@@ -614,6 +618,7 @@
             this.RibbonLabelConfig.TabIndex = 1;
             this.RibbonLabelConfig.Text = "設定";
             this.RibbonLabelConfig.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.RibbonLabelConfig.Click += new System.EventHandler(this.OpenConfig);
             this.RibbonLabelConfig.MouseEnter += new System.EventHandler(this.RibbonLabelMouseIn);
             this.RibbonLabelConfig.MouseLeave += new System.EventHandler(this.RibbonLabelMouseOut);
             // 
@@ -625,6 +630,7 @@
             this.RibbonPanelWhiteList.Name = "RibbonPanelWhiteList";
             this.RibbonPanelWhiteList.Size = new System.Drawing.Size(76, 74);
             this.RibbonPanelWhiteList.TabIndex = 7;
+            this.RibbonPanelWhiteList.Click += new System.EventHandler(this.OpenWhiteList);
             this.RibbonPanelWhiteList.MouseEnter += new System.EventHandler(this.RibbonPanelMouseIn);
             this.RibbonPanelWhiteList.MouseLeave += new System.EventHandler(this.RibbonPanelMouseOut);
             // 
@@ -638,6 +644,7 @@
             this.RibbonImageWhiteList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.RibbonImageWhiteList.TabIndex = 0;
             this.RibbonImageWhiteList.TabStop = false;
+            this.RibbonImageWhiteList.Click += new System.EventHandler(this.OpenWhiteList);
             this.RibbonImageWhiteList.MouseEnter += new System.EventHandler(this.RibbonImageMouseIn);
             this.RibbonImageWhiteList.MouseLeave += new System.EventHandler(this.RibbonImageMouseOut);
             // 
@@ -651,6 +658,7 @@
             this.RibbonLabelWhiteList.TabIndex = 1;
             this.RibbonLabelWhiteList.Text = "ホワイトリスト";
             this.RibbonLabelWhiteList.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.RibbonLabelWhiteList.Click += new System.EventHandler(this.OpenWhiteList);
             this.RibbonLabelWhiteList.MouseEnter += new System.EventHandler(this.RibbonLabelMouseIn);
             this.RibbonLabelWhiteList.MouseLeave += new System.EventHandler(this.RibbonLabelMouseOut);
             // 
@@ -662,6 +670,7 @@
             this.RibbonPanelOPList.Name = "RibbonPanelOPList";
             this.RibbonPanelOPList.Size = new System.Drawing.Size(53, 74);
             this.RibbonPanelOPList.TabIndex = 6;
+            this.RibbonPanelOPList.Click += new System.EventHandler(this.OpenOPList);
             this.RibbonPanelOPList.MouseEnter += new System.EventHandler(this.RibbonPanelMouseIn);
             this.RibbonPanelOPList.MouseLeave += new System.EventHandler(this.RibbonPanelMouseOut);
             // 
@@ -675,6 +684,7 @@
             this.RibbonImageOPList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.RibbonImageOPList.TabIndex = 0;
             this.RibbonImageOPList.TabStop = false;
+            this.RibbonImageOPList.Click += new System.EventHandler(this.OpenOPList);
             this.RibbonImageOPList.MouseEnter += new System.EventHandler(this.RibbonImageMouseIn);
             this.RibbonImageOPList.MouseLeave += new System.EventHandler(this.RibbonImageMouseOut);
             // 
@@ -688,6 +698,7 @@
             this.RibbonLabelOPList.TabIndex = 1;
             this.RibbonLabelOPList.Text = "OPリスト";
             this.RibbonLabelOPList.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.RibbonLabelOPList.Click += new System.EventHandler(this.OpenOPList);
             this.RibbonLabelOPList.MouseEnter += new System.EventHandler(this.RibbonLabelMouseIn);
             this.RibbonLabelOPList.MouseLeave += new System.EventHandler(this.RibbonLabelMouseOut);
             // 
@@ -699,6 +710,7 @@
             this.RibbonPanelBANList.Name = "RibbonPanelBANList";
             this.RibbonPanelBANList.Size = new System.Drawing.Size(58, 74);
             this.RibbonPanelBANList.TabIndex = 5;
+            this.RibbonPanelBANList.Click += new System.EventHandler(this.OpenBANList);
             this.RibbonPanelBANList.MouseEnter += new System.EventHandler(this.RibbonPanelMouseIn);
             this.RibbonPanelBANList.MouseLeave += new System.EventHandler(this.RibbonPanelMouseOut);
             // 
@@ -712,6 +724,7 @@
             this.RibbonImageBANList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.RibbonImageBANList.TabIndex = 0;
             this.RibbonImageBANList.TabStop = false;
+            this.RibbonImageBANList.Click += new System.EventHandler(this.OpenBANList);
             this.RibbonImageBANList.MouseEnter += new System.EventHandler(this.RibbonImageMouseIn);
             this.RibbonImageBANList.MouseLeave += new System.EventHandler(this.RibbonImageMouseOut);
             // 
@@ -725,6 +738,7 @@
             this.RibbonLabelBANList.TabIndex = 1;
             this.RibbonLabelBANList.Text = "BANリスト";
             this.RibbonLabelBANList.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.RibbonLabelBANList.Click += new System.EventHandler(this.OpenBANList);
             this.RibbonLabelBANList.MouseEnter += new System.EventHandler(this.RibbonLabelMouseIn);
             this.RibbonLabelBANList.MouseLeave += new System.EventHandler(this.RibbonLabelMouseOut);
             // 
@@ -732,10 +746,12 @@
             // 
             this.RibbonPanelRestart.Controls.Add(this.RibbonImageRestart);
             this.RibbonPanelRestart.Controls.Add(this.RibbonLabelRestart);
+            this.RibbonPanelRestart.Enabled = false;
             this.RibbonPanelRestart.Location = new System.Drawing.Point(120, 8);
             this.RibbonPanelRestart.Name = "RibbonPanelRestart";
             this.RibbonPanelRestart.Size = new System.Drawing.Size(48, 74);
             this.RibbonPanelRestart.TabIndex = 4;
+            this.RibbonPanelRestart.Click += new System.EventHandler(this.ServerRestart);
             this.RibbonPanelRestart.MouseEnter += new System.EventHandler(this.RibbonPanelMouseIn);
             this.RibbonPanelRestart.MouseLeave += new System.EventHandler(this.RibbonPanelMouseOut);
             // 
@@ -762,6 +778,7 @@
             this.RibbonLabelRestart.TabIndex = 1;
             this.RibbonLabelRestart.Text = "再起動";
             this.RibbonLabelRestart.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.RibbonLabelRestart.Click += new System.EventHandler(this.ServerRestart);
             this.RibbonLabelRestart.MouseEnter += new System.EventHandler(this.RibbonLabelMouseIn);
             this.RibbonLabelRestart.MouseLeave += new System.EventHandler(this.RibbonLabelMouseOut);
             // 
@@ -769,6 +786,7 @@
             // 
             this.RibbonPanelStop.Controls.Add(this.RibbonImageStop);
             this.RibbonPanelStop.Controls.Add(this.RibbonLabelStop);
+            this.RibbonPanelStop.Enabled = false;
             this.RibbonPanelStop.Location = new System.Drawing.Point(66, 8);
             this.RibbonPanelStop.Name = "RibbonPanelStop";
             this.RibbonPanelStop.Size = new System.Drawing.Size(48, 74);
@@ -899,65 +917,37 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.PanelUserList);
             this.panel1.Controls.Add(this.PanelPerformance);
-            this.panel1.Controls.Add(this.UserList);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 136);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(207, 427);
             this.panel1.TabIndex = 1;
             // 
+            // PanelUserList
+            // 
+            this.PanelUserList.BackColor = System.Drawing.Color.White;
+            this.PanelUserList.Controls.Add(this.UserList);
+            this.PanelUserList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PanelUserList.Location = new System.Drawing.Point(0, 95);
+            this.PanelUserList.Name = "PanelUserList";
+            this.PanelUserList.Size = new System.Drawing.Size(207, 332);
+            this.PanelUserList.TabIndex = 2;
+            // 
             // UserList
             // 
-            this.UserList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.UserList.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.UserList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.UserList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.UserList.FormattingEnabled = true;
             this.UserList.ItemHeight = 32;
             this.UserList.Location = new System.Drawing.Point(0, 0);
             this.UserList.Name = "UserList";
-            this.UserList.Size = new System.Drawing.Size(207, 427);
+            this.UserList.Size = new System.Drawing.Size(207, 332);
             this.UserList.TabIndex = 0;
             this.UserList.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.UserListDraw);
-            // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.Color.Black;
-            this.panel3.Controls.Add(this.Console);
-            this.panel3.Controls.Add(this.textBox1);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(207, 136);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(638, 427);
-            this.panel3.TabIndex = 2;
-            // 
-            // Console
-            // 
-            this.Console.BackColor = System.Drawing.Color.Black;
-            this.Console.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.Console.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Console.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Console.ForeColor = System.Drawing.Color.White;
-            this.Console.FormattingEnabled = true;
-            this.Console.ItemHeight = 17;
-            this.Console.Location = new System.Drawing.Point(0, 0);
-            this.Console.Margin = new System.Windows.Forms.Padding(0);
-            this.Console.Name = "Console";
-            this.Console.Size = new System.Drawing.Size(638, 401);
-            this.Console.TabIndex = 1;
-            // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.textBox1.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.ForeColor = System.Drawing.Color.White;
-            this.textBox1.Location = new System.Drawing.Point(0, 401);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(0);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(638, 26);
-            this.textBox1.TabIndex = 0;
+            this.UserList.SelectedIndexChanged += new System.EventHandler(this.UserListSelected);
             // 
             // PanelPerformance
             // 
@@ -977,6 +967,47 @@
             this.LabelPerformance.Size = new System.Drawing.Size(113, 60);
             this.LabelPerformance.TabIndex = 0;
             this.LabelPerformance.Text = "CPU: 0%\r\nメモリ: 0 MB\r\n仮想メモリ: 0 MB";
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.Black;
+            this.panel3.Controls.Add(this.Console);
+            this.panel3.Controls.Add(this.CommandSender);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(207, 136);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(638, 427);
+            this.panel3.TabIndex = 2;
+            // 
+            // Console
+            // 
+            this.Console.BackColor = System.Drawing.Color.Black;
+            this.Console.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.Console.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Console.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Console.ForeColor = System.Drawing.Color.White;
+            this.Console.FormattingEnabled = true;
+            this.Console.ItemHeight = 17;
+            this.Console.Location = new System.Drawing.Point(0, 0);
+            this.Console.Margin = new System.Windows.Forms.Padding(0);
+            this.Console.Name = "Console";
+            this.Console.SelectionMode = System.Windows.Forms.SelectionMode.None;
+            this.Console.Size = new System.Drawing.Size(638, 401);
+            this.Console.TabIndex = 1;
+            // 
+            // CommandSender
+            // 
+            this.CommandSender.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.CommandSender.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.CommandSender.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.CommandSender.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CommandSender.ForeColor = System.Drawing.Color.White;
+            this.CommandSender.Location = new System.Drawing.Point(0, 401);
+            this.CommandSender.Margin = new System.Windows.Forms.Padding(0);
+            this.CommandSender.Name = "CommandSender";
+            this.CommandSender.Size = new System.Drawing.Size(638, 26);
+            this.CommandSender.TabIndex = 0;
+            this.CommandSender.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ConsoleSend);
             // 
             // Form1
             // 
@@ -1042,10 +1073,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.RibbonImageStart)).EndInit();
             this.RibbonTabs.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
+            this.PanelUserList.ResumeLayout(false);
             this.PanelPerformance.ResumeLayout(false);
             this.PanelPerformance.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1120,10 +1152,11 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.ListBox Console;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox CommandSender;
         private System.Windows.Forms.ListBox UserList;
         private System.Windows.Forms.Panel PanelPerformance;
         private System.Windows.Forms.Label LabelPerformance;
+        private System.Windows.Forms.Panel PanelUserList;
     }
 }
 

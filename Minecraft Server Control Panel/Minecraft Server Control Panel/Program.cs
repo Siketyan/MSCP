@@ -18,7 +18,14 @@ namespace Minecraft_Server_Control_Panel
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            App = new Form1();
+            CheckDirectory(@"\Server");
+            Application.Run(App);
+        }
+
+        static public void CheckDirectory(string path)
+        {
+            if (!Directory.Exists(ProgramDirectory + path)) Directory.CreateDirectory(ProgramDirectory + path);
         }
     }
 }
