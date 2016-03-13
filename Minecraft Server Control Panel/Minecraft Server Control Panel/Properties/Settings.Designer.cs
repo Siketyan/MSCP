@@ -82,5 +82,17 @@ namespace Minecraft_Server_Control_Panel.Properties {
                 this["IsBukkit"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
+        public int CPURefresh {
+            get {
+                return ((int)(this["CPURefresh"]));
+            }
+            set {
+                this["CPURefresh"] = value;
+            }
+        }
     }
 }

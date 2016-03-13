@@ -17,5 +17,8 @@
     <Setting Name="IsBukkit" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="CPURefresh" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1000</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -65,7 +65,7 @@ namespace Minecraft_Server_Control_Panel
                 while (ServerRunning)
                 {
                     Program.App.Invoke(ServerPerformanceDLG, new object[] { GetServerCPU() + " %", GetServerRAM() + " MB", GetServerVRAM() + " MB" });
-                    Thread.Sleep(1000);
+                    Thread.Sleep(Properties.Settings.Default.CPURefresh);
                 }
             });
             Program.App.Invoke(ServerPerformanceDLG, new object[] { "0 %", "0 MB", "0 MB" });
@@ -129,7 +129,7 @@ namespace Minecraft_Server_Control_Panel
             Server.StandardInput.WriteLine(text);
         }
 
-        static public void server_stop_force()
+        static public void ServerStopForce()
         {
             Server.Kill();
         }

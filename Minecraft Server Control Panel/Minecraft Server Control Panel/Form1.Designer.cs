@@ -1021,6 +1021,7 @@
             this.MinimumSize = new System.Drawing.Size(510, 430);
             this.Name = "Form1";
             this.Text = "MSCP - Minecraft Server Control Panel";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormClose);
             this.Load += new System.EventHandler(this.Init);
             this.Ribbon.ResumeLayout(false);
             this.RibbonPageTools.ResumeLayout(false);

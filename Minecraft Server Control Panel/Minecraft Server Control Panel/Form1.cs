@@ -281,22 +281,41 @@ namespace Minecraft_Server_Control_Panel
 
         private void OpenBANList(object sender, EventArgs e)
         {
-
+            ListWindow Window = new ListWindow("BAN");
+            Window.Show(this);
         }
 
         private void OpenOPList(object sender, EventArgs e)
         {
-
+            ListWindow Window = new ListWindow("OP");
+            Window.Show(this);
         }
 
         private void OpenWhiteList(object sender, EventArgs e)
         {
-
+            ListWindow Window = new ListWindow("White");
+            Window.Show(this);
         }
 
         private void OpenConfig(object sender, EventArgs e)
         {
 
+        }
+
+        private void FormClose(object sender, FormClosingEventArgs e)
+        {
+            if (ServerControl.ServerRunning)
+            {
+                if (MessageBox.Show("サーバーが起動中です。サーバーを強制終了してMSCPを終了しますか？", 
+                    "強制終了の確認", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    e.Cancel = true;
+                }
+                else
+                {
+                    ServerControl.ServerStopForce();
+                }
+            }
         }
     }
 }
