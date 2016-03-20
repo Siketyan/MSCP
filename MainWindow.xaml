@@ -1,12 +1,118 @@
-﻿<Window x:Class="Minecraft_Server_Control_Panel.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Minecraft_Server_Control_Panel"
+        xmlns:Custom="http://schemas.microsoft.com/winfx/2006/xaml/presentation/ribbon" xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="Minecraft_Server_Control_Panel.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MSCP （Minecraft Server Control Panel）" Height="486" Width="702">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="24" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Custom:Ribbon x:Name="Ribbon" Background="White" BorderBrush="#FFD5D6D6" Grid.Row="0" Grid.ColumnSpan="2" MouseOverBackground="#FF98D5FF" PressedBorderBrush="#FF1488FB" PressedBackground="#FF40A0FF" FocusedBackground="#FF98D5FF" FocusedBorderBrush="#FF1488FB" Loaded="RibbonLoaded" MouseOverBorderBrush="#FF1488FB">
+                <Custom:Ribbon.QuickAccessToolBar>
+                    <Custom:RibbonQuickAccessToolBar Visibility="Collapsed" />
+                </Custom:Ribbon.QuickAccessToolBar>
+                <Custom:Ribbon.ApplicationMenu>
+                    <Custom:RibbonApplicationMenu Visibility="Collapsed" />
+                </Custom:Ribbon.ApplicationMenu>
+                <Custom:RibbonTab Header="サーバー">
+                    <Custom:RibbonGroup Header="サーバー操作">
+                        <Custom:RibbonButton x:Name="ButtonStart" Label="起動" LargeImageSource="resources/start.png" Click="StartServer" />
+                        <Custom:RibbonButton x:Name="ButtonStop" Label="停止" LargeImageSource="resources/stop.png" Click="StopServer" />
+                        <Custom:RibbonButton x:Name="ButtonRestart" Label="再起動" LargeImageSource="resources/restart.png" Click="RestartServer" />
+                    </Custom:RibbonGroup>
+                    <Custom:RibbonGroup Header="リスト管理">
+                        <Custom:RibbonButton Label="BANリスト" LargeImageSource="resources/list-ban.png" />
+                        <Custom:RibbonButton Label="OPリスト" LargeImageSource="resources/list-op.png" />
+                        <Custom:RibbonButton Label="ホワイトリスト" LargeImageSource="resources/list-white.png" />
+                    </Custom:RibbonGroup>
+                    <Custom:RibbonGroup>
+                        <Custom:RibbonButton Label="設定" LargeImageSource="resources/config.png" />
+                    </Custom:RibbonGroup>
+                </Custom:RibbonTab>
+                <Custom:RibbonTab Header="プレイヤー">
+                    <Custom:RibbonGroup Header="プレイヤー操作">
+                        <Custom:RibbonButton Label="BAN" LargeImageSource="resources/ban.png" />
+                        <Custom:RibbonButton Label="キック" LargeImageSource="resources/kick.png" />
+                    </Custom:RibbonGroup>
+                    <Custom:RibbonGroup Header="リスト追加">
+                        <Custom:RibbonButton Label="OPに追加" LargeImageSource="resources/op-add.png" />
+                        <Custom:RibbonButton Label="ホワイトリストに追加" LargeImageSource="resources/white-add.png" />
+                    </Custom:RibbonGroup>
+                    <Custom:RibbonGroup>
+                        <Custom:RibbonButton Label="プレイヤー詳細" LargeImageSource="resources/info.png" />
+                    </Custom:RibbonGroup>
+                </Custom:RibbonTab>
+                <Custom:RibbonTab Header="ツール">
+                    <Custom:RibbonGroup Header="Bukkit管理">
+                        <Custom:RibbonButton Label="リロード" LargeImageSource="resources/reload.png" />
+                    </Custom:RibbonGroup>
+                </Custom:RibbonTab>
+            </Custom:Ribbon>
+            <Grid Grid.Row="1" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="87" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Border BorderBrush="#FFD5D6D6" BorderThickness="0,0,0,1" Grid.Row="0">
+                        <Grid>
+                            <Label x:Name="Status" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top">
+                                <TextBlock FontSize="13">
+                                    <Run x:Name="PerformanceCPU" Text="CPU: 0%"/><LineBreak />
+                                    <Run x:Name="PerformanceRAM" Text="物理メモリ: 0%"/><LineBreak />
+                                    <Run x:Name="PerformanceVRAM" Text="仮想メモリ: 0%"/>
+                                </TextBlock>
+                            </Label>
+                        </Grid>
+                    </Border>
+                    <ListBox x:Name="UserList" Grid.Row="1">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="32" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Column="0" Source="{Binding image}" />
+                                    <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="6,0,0,1" FontSize="13" Text="{Binding name}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="25" />
+                    </Grid.RowDefinitions>
+                    <ListBox x:Name="Log" Grid.Row="0" BorderBrush="Black" Background="Black" Foreground="White" Padding="0" />
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="50" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="ConsoleSender" Grid.Column="0" BorderBrush="#FFD5D6D6" BorderThickness="1" Background="White" FontSize="13" Padding="4,2,0,0" KeyDown="TextBoxKeyDown" />
+                        <Button Grid.Column="1" BorderBrush="{x:Null}" Padding="0" Background="White" Content="送信" Click="SendConsole"/>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+        <StatusBar Grid.Row="1" Height="24">
+            <StatusBarItem Background="White" BorderBrush="#FFD5D6D6" BorderThickness="0,1,0,0" Padding="5,3,3,3" Content="準備完了"/>
+        </StatusBar>
     </Grid>
 </Window>
