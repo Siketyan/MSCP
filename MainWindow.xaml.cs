@@ -22,15 +22,16 @@ namespace Minecraft_Server_Control_Panel
     public partial class MainWindow : Window
     {
         List<Avatar> Users;
+        List<string> UserNames;
         ServerControl Controller;
-        private ObservableCollection<string> oc;
-        private ScrollViewer sv;
 
         public MainWindow()
         {
             InitializeComponent();
             Users = new List<Avatar>();
+            UserNames = new List<string>();
             Controller = new ServerControl(this);
+            UserList.ItemsSource = Users;
         }
 
         private void RibbonLoaded(object sender, RoutedEventArgs e)
@@ -46,29 +47,31 @@ namespace Minecraft_Server_Control_Panel
         {
             ButtonStart.IsEnabled = false;
             ButtonStop.IsEnabled = true;
+            Status.Content = "サーバーの起動準備をしています。";
         }
         public void ButtonSetStop()
         {
             ButtonStart.IsEnabled = true;
             ButtonStop.IsEnabled = false;
             ButtonRestart.IsEnabled = false;
+            Status.Content = "準備完了";
         }
 
         public void ConsoleChanged(string text)
         {
-            if (Regex.IsMatch(text, @"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\][A-Za-z0-9 \[\]/]+INFO\]: [a-zA-Z0-9]+\[/[0-9\.]+:[0-9]+\] logged in with entity id [0-9]+ at \(.+\)$"))
+            if (Regex.IsMatch(text, @"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\][A-Za-z0-9 \[\]/]+INFO\]: [a-zA-Z0-9_]+\[/[0-9\.]+:[0-9]+\] logged in with entity id [0-9]+ at \(.+\)$"))
             {
-                Regex reg = new Regex(@"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\][A-Za-z0-9 \[\]/]+INFO\]: (?<ID>[a-zA-Z0-9]+)\[/(?<IP>[0-9\.]+):[0-9]+\] logged in with entity id [0-9]+ at \(.+\)$");
+                Regex reg = new Regex(@"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\][A-Za-z0-9 \[\]/]+INFO\]: (?<ID>[a-zA-Z0-9_]+)\[/(?<IP>[0-9\.]+):[0-9]+\] logged in with entity id [0-9]+ at \(.+\)$");
                 Match m = reg.Match(text);
                 Users.Add(new Avatar(m.Groups["ID"].Value));
-                UserList.ItemsSource = Users;
+                UserNames.Add(m.Groups["ID"].Value);
             }
-            if (Regex.IsMatch(text, @"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\][A-Za-z0-9 \[\]/]+INFO\]: [a-zA-Z0-9]+ left the game$"))
+            if (Regex.IsMatch(text, @"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\][A-Za-z0-9 \[\]/]+INFO\]: [a-zA-Z0-9_]+ left the game$"))
             {
-                Regex reg = new Regex(@"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\][A-Za-z0-9 \[\]/]+INFO\]: (?<ID>[a-zA-Z0-9]+?) left the game$");
+                Regex reg = new Regex(@"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\][A-Za-z0-9 \[\]/]+INFO\]: (?<ID>[a-zA-Z0-9_]+?) left the game$");
                 Match m = reg.Match(text);
                 Users.Remove(new Avatar(m.Groups["ID"].Value));
-                UserList.ItemsSource = Users;
+                UserNames.Remove(m.Groups["ID"].Value);
             }
             Log.Items.Add(text);
             var border = VisualTreeHelper.GetChild(UserList, 0) as Border;
@@ -92,6 +95,9 @@ namespace Minecraft_Server_Control_Panel
         {
             Log.Items.Clear();
             Users.Clear();
+            UserNames.Clear();
+            ButtonSetStart();
+            Controller.ServerStart();
         }
         void StopServer(object sender, RoutedEventArgs e)
         {
@@ -114,14 +120,27 @@ namespace Minecraft_Server_Control_Panel
             {
                 if (ConsoleSender.Text == "stop")
                 {
-                    StopServer(new object[]{}, new RoutedEventArgs());
+                    StopServer(new object{}, new RoutedEventArgs());
                     ConsoleSender.Text = "";
                 }
                 else
                 {
-                    SendConsole(new object[]{}, new RoutedEventArgs());
+                    SendConsole(new object{}, new RoutedEventArgs());
                 }
             }
+        }
+
+        void KickPlayer(object sender, RoutedEventArgs e)
+        {
+            Controller.ConsoleWrite("kick " + UserNames[UserList.SelectedIndex]);
+        }
+        void AddOP(object sender, RoutedEventArgs e)
+        {
+            Controller.ConsoleWrite("op " + UserNames[UserList.SelectedIndex]);
+        }
+        void AddWhiteList(object sender, RoutedEventArgs e)
+        {
+            Controller.ConsoleWrite("whitelist add " + UserNames[UserList.SelectedIndex]);
         }
     }
 }

@@ -16,5 +16,10 @@ namespace Minecraft_Server_Control_Panel
         {
             if (!Directory.Exists(ProgramDirectory + path)) Directory.CreateDirectory(ProgramDirectory + path);
         }
+        static public bool CheckFile(string path)
+        {
+            if (!File.Exists(ProgramDirectory + path)) return false;
+            return true;
+        }
     }
 }
