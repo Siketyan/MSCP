@@ -5,105 +5,130 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Minecraft_Server_Control_Panel"
         mc:Ignorable="d"
-        Title="設定" Height="434.75" Width="777.5" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+        Title="設定" Height="420" Width="777" ResizeMode="NoResize" WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False" Loaded="Init" WindowStyle="ToolWindow">
     <Grid>
-        <GroupBox Header="Javaの設定" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="108" Width="752">
-            <Grid>
-                <Label Content="java.exeへの絶対パス" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,9,0,0"/>
-                <TextBox x:Name="JavaPath" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap"
-                         VerticalAlignment="Top" Width="521" VerticalContentAlignment="Center" Margin="129,10,0,0" BorderBrush="#FFD5D6D6" />
-                <Button Content="参照" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Height="23"
-                        RenderTransformOrigin="1.32,0.696" Margin="655,10,0,0" Background="{x:Null}" >
-                    <Button.BorderBrush>
-                        <SolidColorBrush Color="#FFD5D6D6"/>
-                    </Button.BorderBrush>
-                </Button>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="115" />
+            <RowDefinition Height="115" />
+            <RowDefinition Height="115" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
 
-                <Label Content="最大メモリ使用量" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,48,0,0" />
-                <local:NumericTextBox x:Name="Xmx" HorizontalAlignment="Left" Height="23" MaxLength="6"
-                        VerticalAlignment="Top" Width="68" VerticalContentAlignment="Center" Margin="111,51,0,0" BorderBrush="#FFD5D6D6" />
-                <Label Content="MB" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="179,48,0,0" />
+        <GroupBox Header="Javaの設定" Margin="10" Grid.Row="0">
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="85" />
+                    </Grid.ColumnDefinitions>
 
-                <Label Content="最小メモリ使用量" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="224,48,0,0" />
-                <local:NumericTextBox x:Name="Xms" HorizontalAlignment="Left" Height="23" MaxLength="6"
-                	    VerticalAlignment="Top" Width="68" VerticalContentAlignment="Center" Margin="325,51,0,0" BorderBrush="#FFD5D6D6" />
-                <Label Content="MB" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="393,48,0,0" />
-
-                <Label Content="オプション" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="459,48,0,0" />
-                <TextBox x:Name="Options" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap"
-                         VerticalAlignment="Top" Width="212" VerticalContentAlignment="Center" Margin="518,51,0,0" BorderBrush="#FFD5D6D6" />
-            </Grid>
+                    <Label Content="java.exeへのパス" Grid.Column="0" VerticalAlignment="Center" Margin="10,5,0,5" />
+                    <TextBox x:Name="JavaPath" Grid.Column="1" Height="23" TextWrapping="Wrap"
+                        ToolTip="java.exeへの絶対パスを指定します。通常、C:\Program Files\Java\バージョン\binの中にあります。"
+                        VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="5" BorderBrush="#FFD5D6D6" />
+                    <Button Content="参照" Grid.Column="2" VerticalAlignment="Center" Width="75" Height="23" Click="JavaOpen"
+                        RenderTransformOrigin="1.32,0.696" Margin="0,0,10,0" Background="{x:Null}" BorderBrush="#FFD5D6D6" />
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    
+                    <Label Content="オプション" Grid.Column="0" VerticalAlignment="Center" Margin="10,5,0,5" />
+                    <TextBox x:Name="Options" Grid.Column="1" Height="23" TextWrapping="Wrap" Margin="0,0,10,0"
+                        VerticalAlignment="Center" VerticalContentAlignment="Center" BorderBrush="#FFD5D6D6"
+                        ToolTip="Java起動時に指定するオプションです。ヒープ設定などはこちらに入力してください。ただし、jarファイルの指定を除きます。" />
+                </Grid>
+            </StackPanel>
         </GroupBox>
-        <GroupBox Header="サーバーのインポート" HorizontalAlignment="Left" Margin="10,132,0,0" VerticalAlignment="Top" Width="752" Height="109">
-            <Grid>
-                <Label Content="サーバーjarファイル" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="JarPath" HorizontalAlignment="Left" Height="23" Margin="107,13,0,0"
-                         TextWrapping="Wrap" VerticalAlignment="Top" Width="543" VerticalContentAlignment="Center" IsReadOnly="True" BorderBrush="#FFD5D6D6"/>
-                <Button Content="参照" HorizontalAlignment="Left" Margin="655,13,0,0" VerticalAlignment="Top" Width="75" Height="23" Background="{x:Null}">
-                    <Button.BorderBrush>
-                        <SolidColorBrush Color="#FFD5D6D6"/>
-                    </Button.BorderBrush>
-                </Button>
+        <GroupBox Header="サーバーのインポート" Margin="10" Grid.Row="1">
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="85" />
+                    </Grid.ColumnDefinitions>
 
-                <Label Content="サーバーはインポートされていません。" HorizontalAlignment="Right" Margin="0,51,293,0" VerticalAlignment="Top"/>
-                <CheckBox x:Name="checkBox" Content="Bukkit" HorizontalAlignment="Left" Margin="472,56,0,0" VerticalAlignment="Top"/>
-                <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="530,52,0,0" VerticalAlignment="Top" Width="120">
-                    <ComboBoxItem Content="1.9"/>
-                    <ComboBoxItem Content="1.8.9"/>
-                    <ComboBoxItem Content="1.8.8"/>
-                    <ComboBoxItem Content="1.8.7"/>
-                    <ComboBoxItem Content="1.8.6"/>
-                    <ComboBoxItem Content="1.8.5"/>
-                    <ComboBoxItem Content="1.8.4"/>
-                    <ComboBoxItem Content="1.8.3"/>
-                    <ComboBoxItem Content="1.8.2"/>
-                    <ComboBoxItem Content="1.8.1"/>
-                    <ComboBoxItem Content="1.8"/>
-                    <ComboBoxItem Content="1.7.10"/>
-                    <ComboBoxItem Content="1.7.9"/>
-                    <ComboBoxItem Content="1.7.8"/>
-                    <ComboBoxItem Content="1.7.7"/>
-                    <ComboBoxItem Content="1.7.6"/>
-                    <ComboBoxItem Content="1.7.5"/>
-                    <ComboBoxItem Content="1.7.4"/>
-                    <ComboBoxItem Content="1.7.3"/>
-                    <ComboBoxItem Content="1.7.2"/>
-                    <ComboBoxItem Content="1.6.4"/>
-                    <ComboBoxItem Content="1.6.2"/>
-                    <ComboBoxItem Content="1.6.1"/>
-                    <ComboBoxItem Content="1.5.2"/>
-                    <ComboBoxItem Content="1.5.1"/>
-                    <ComboBoxItem Content="1.4.7"/>
-                    <ComboBoxItem Content="1.4.6"/>
-                    <ComboBoxItem Content="1.4.5"/>
-                    <ComboBoxItem Content="1.4.4"/>
-                    <ComboBoxItem Content="1.4.2"/>
-                    <ComboBoxItem Content="1.3.2"/>
-                    <ComboBoxItem Content="1.3.1"/>
-                    <ComboBoxItem Content="1.2.5"/>
-                    <ComboBoxItem Content="1.2.4"/>
-                    <ComboBoxItem Content="1.2.3"/>
-                    <ComboBoxItem Content="1.2.2"/>
-                    <ComboBoxItem Content="1.2.1"/>
-                    <ComboBoxItem Content="1.1"/>
-                    <ComboBoxItem Content="1.0"/>
-                    <ComboBoxItem Content="その他のバージョン"/>
-                </ComboBox>
-                <Button Content="インポート" HorizontalAlignment="Left" Margin="655,51,0,0" VerticalAlignment="Top" Width="75" Height="23" Background="{x:Null}">
-                    <Button.BorderBrush>
-                        <SolidColorBrush Color="#FFD5D6D6"/>
-                    </Button.BorderBrush>
-                </Button>
-            </Grid>
+                    <Label Content="サーバーjarファイル" Grid.Column="0" VerticalAlignment="Center" Margin="10,5,0,5" />
+                    <TextBox x:Name="JarPath" Grid.Column="1" Height="23" TextWrapping="Wrap"
+                        VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="5" BorderBrush="#FFD5D6D6"
+                        ToolTip="インポートするサーバーのjarファイルです。公式からダウンロードしたものと自分でビルドしたSpigotなどのどちらでも大丈夫です。" />
+                    <Button Content="参照" Grid.Column="2" VerticalAlignment="Center" Width="75" Height="23" Click="JarOpen"
+                        RenderTransformOrigin="1.32,0.696" Margin="0,0,10,0" Background="{x:Null}" BorderBrush="#FFD5D6D6" />
+                </Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Label x:Name="Current" Content="サーバーはインポートされていません。" Margin="10,5,0,5" VerticalAlignment="Center"/>
+                    <CheckBox x:Name="IsBukkit" Content="Bukkit" Margin="10,5,5,5" VerticalAlignment="Center"
+                        ToolTip="Bukkit APIを使用するサーバー（CraftBukkit、Spigotなど）をインポートする場合はチェックを入れてください。"/>
+                    <ComboBox x:Name="Version" Margin="5" VerticalAlignment="Center" Width="120">
+                        <ComboBox.ToolTip>
+                            <TextBlock>
+                                <Run>サーバーのバージョンを選択してください。ただし、CraftBukkitやSpigotなどの場合はベースとなるMinecraftサーバーのバージョンを選択してください。</Run>
+                                <LineBreak />
+                                <Run>また、SnapShotやAlpha、Betaバージョンを使用する場合はその他のバージョンを選択してください。</Run>
+                            </TextBlock>
+                        </ComboBox.ToolTip>
+                        <ComboBoxItem Content="1.9"/>
+                        <ComboBoxItem Content="1.8.9"/>
+                        <ComboBoxItem Content="1.8.8"/>
+                        <ComboBoxItem Content="1.8.7"/>
+                        <ComboBoxItem Content="1.8.6"/>
+                        <ComboBoxItem Content="1.8.5"/>
+                        <ComboBoxItem Content="1.8.4"/>
+                        <ComboBoxItem Content="1.8.3"/>
+                        <ComboBoxItem Content="1.8.2"/>
+                        <ComboBoxItem Content="1.8.1"/>
+                        <ComboBoxItem Content="1.8"/>
+                        <ComboBoxItem Content="1.7.10"/>
+                        <ComboBoxItem Content="1.7.9"/>
+                        <ComboBoxItem Content="1.7.8"/>
+                        <ComboBoxItem Content="1.7.7"/>
+                        <ComboBoxItem Content="1.7.6"/>
+                        <ComboBoxItem Content="1.7.5"/>
+                        <ComboBoxItem Content="1.7.4"/>
+                        <ComboBoxItem Content="1.7.3"/>
+                        <ComboBoxItem Content="1.7.2"/>
+                        <ComboBoxItem Content="1.6.4"/>
+                        <ComboBoxItem Content="1.6.2"/>
+                        <ComboBoxItem Content="1.6.1"/>
+                        <ComboBoxItem Content="1.5.2"/>
+                        <ComboBoxItem Content="1.5.1"/>
+                        <ComboBoxItem Content="1.4.7"/>
+                        <ComboBoxItem Content="1.4.6"/>
+                        <ComboBoxItem Content="1.4.5"/>
+                        <ComboBoxItem Content="1.4.4"/>
+                        <ComboBoxItem Content="1.4.2"/>
+                        <ComboBoxItem Content="1.3.2"/>
+                        <ComboBoxItem Content="1.3.1"/>
+                        <ComboBoxItem Content="1.2.5"/>
+                        <ComboBoxItem Content="1.2.4"/>
+                        <ComboBoxItem Content="1.2.3"/>
+                        <ComboBoxItem Content="1.2.2"/>
+                        <ComboBoxItem Content="1.2.1"/>
+                        <ComboBoxItem Content="1.1"/>
+                        <ComboBoxItem Content="1.0"/>
+                        <ComboBoxItem Content="その他のバージョン"/>
+                    </ComboBox>
+                    <Button Content="インポート" Margin="0,0,10,0" VerticalAlignment="Center" Width="75" Height="23" Background="{x:Null}" BorderBrush="#FFD5D6D6" />
+                </StackPanel>
+            </StackPanel>
         </GroupBox>
-        <GroupBox Header="MSCPの設定" HorizontalAlignment="Left" Margin="10,255,0,0" VerticalAlignment="Top" Width="752" Height="100">
-            <Grid>
-                <CheckBox Content="新しいログを通知する" Margin="10,10,578,48" />
-                <CheckBox Content="プレイヤーの接続を通知する" Margin="10,31,578,27" />
-                <CheckBox Content="プレイヤーの切断を通知する" Margin="10,52,578,6" />
-            </Grid>
+        <GroupBox Header="MSCPの設定" Margin="10" Grid.Row="2">
+            <StackPanel>
+                <CheckBox x:Name="NotifyLog" Content="新しいログを通知する" Margin="15,8,0,0" />
+                <CheckBox x:Name="NotifyJoin" Content="プレイヤーの接続を通知する" Margin="15,5,0,0" />
+                <CheckBox x:Name="NotifyLeave" Content="プレイヤーの切断を通知する" Margin="15,5,0,0" />
+            </StackPanel>
         </GroupBox>
-        <Button Content="OK" HorizontalAlignment="Left" Margin="607,371,0,0" VerticalAlignment="Top" Width="75" Height="23" Background="{x:Null}" BorderBrush="#FFD5D6D6" RenderTransformOrigin="0.867,14.435"/>
-        <Button Content="キャンセル" HorizontalAlignment="Left" Margin="687,371,0,0" VerticalAlignment="Top" Width="75" Height="23" Background="{x:Null}" BorderBrush="#FFD5D6D6" RenderTransformOrigin="0.867,14.435"/>
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="OK" Margin="0,0,10,10" VerticalAlignment="Center" Width="75" Height="23"
+                Background="{x:Null}" BorderBrush="#FFD5D6D6" RenderTransformOrigin="0.867,14.435" Click="Save" />
+            <Button Content="キャンセル"  Margin="0,0,12,10" VerticalAlignment="Center" Width="75" Height="23"
+                Background="{x:Null}" BorderBrush="#FFD5D6D6" RenderTransformOrigin="0.867,14.435" Click="Cancel" />
+        </StackPanel>
     </Grid>
 </Window>

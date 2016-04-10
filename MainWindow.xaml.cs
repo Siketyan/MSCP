@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -21,19 +22,35 @@ namespace Minecraft_Server_Control_Panel
     /// </summary>
     public partial class MainWindow : Window
     {
+        // 使用する動的クラスを宣言
         List<Avatar> Users;
         List<string> UserNames;
         ServerControl Controller;
+        Utility Util;
 
         public MainWindow()
         {
+            // ウィンドウ形成
             InitializeComponent();
+            // 動的クラスを初期化
             Users = new List<Avatar>();
             UserNames = new List<string>();
             Controller = new ServerControl(this);
+            Util = new Utility(this);
+            // ユーザーリストのソースをUsersリストに設定
             UserList.ItemsSource = Users;
         }
 
+        void Init(object sender, RoutedEventArgs e)
+        {
+            // Program Files\Javaが存在しなければ
+            if(!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + @"\Java")
+                && !Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + @"\Java"))
+            {
+                Util.ShowMessage("Java Runtimeが検出されませんでした。OracleのサイトからJavaのダウンロードおよびインストールを行ってください。なお、64ビットOSの場合は64ビット用Javaをインストールしてください。",
+                    MessageBoxImage.Error, MessageBoxButton.OK);
+            }
+        }
         private void RibbonLoaded(object sender, RoutedEventArgs e)
         {
             Grid child = VisualTreeHelper.GetChild((DependencyObject)sender, 0) as Grid;
@@ -78,7 +95,7 @@ namespace Minecraft_Server_Control_Panel
             if (border != null)
             {
                 var ListScroll = border.Child as ScrollViewer;
-                if(ListScroll != null)
+                if (ListScroll != null)
                 {
                     ListScroll.ScrollToEnd();
                 }
@@ -120,12 +137,12 @@ namespace Minecraft_Server_Control_Panel
             {
                 if (ConsoleSender.Text == "stop")
                 {
-                    StopServer(new object{}, new RoutedEventArgs());
+                    StopServer(new object { }, new RoutedEventArgs());
                     ConsoleSender.Text = "";
                 }
                 else
                 {
-                    SendConsole(new object{}, new RoutedEventArgs());
+                    SendConsole(new object { }, new RoutedEventArgs());
                 }
             }
         }
@@ -141,6 +158,13 @@ namespace Minecraft_Server_Control_Panel
         void AddWhiteList(object sender, RoutedEventArgs e)
         {
             Controller.ConsoleWrite("whitelist add " + UserNames[UserList.SelectedIndex]);
+        }
+
+        void OpenConfig(object sender, RoutedEventArgs e)
+        {
+            Config Conf = new Config(this);
+            Conf.Owner = this;
+            Conf.ShowDialog();
         }
     }
 }

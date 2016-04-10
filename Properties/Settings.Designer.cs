@@ -38,36 +38,12 @@ namespace Minecraft_Server_Control_Panel.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Xmx {
-            get {
-                return ((string)(this["Xmx"]));
-            }
-            set {
-                this["Xmx"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string Xms {
             get {
                 return ((string)(this["Xms"]));
             }
             set {
                 this["Xms"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
-        public int StatusRefresh {
-            get {
-                return ((int)(this["StatusRefresh"]));
-            }
-            set {
-                this["StatusRefresh"] = value;
             }
         }
         
@@ -80,6 +56,90 @@ namespace Minecraft_Server_Control_Panel.Properties {
             }
             set {
                 this["AvatarSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Options {
+            get {
+                return ((string)(this["Options"]));
+            }
+            set {
+                this["Options"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool NotifyLog {
+            get {
+                return ((bool)(this["NotifyLog"]));
+            }
+            set {
+                this["NotifyLog"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool NotifyJoin {
+            get {
+                return ((bool)(this["NotifyJoin"]));
+            }
+            set {
+                this["NotifyJoin"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool NotifyLeave {
+            get {
+                return ((bool)(this["NotifyLeave"]));
+            }
+            set {
+                this["NotifyLeave"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IsBukkit {
+            get {
+                return ((bool)(this["IsBukkit"]));
+            }
+            set {
+                this["IsBukkit"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Version {
+            get {
+                return ((string)(this["Version"]));
+            }
+            set {
+                this["Version"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
+        public int StatusRefresh {
+            get {
+                return ((int)(this["StatusRefresh"]));
+            }
+            set {
+                this["StatusRefresh"] = value;
             }
         }
     }

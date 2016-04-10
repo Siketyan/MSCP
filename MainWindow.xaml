@@ -6,7 +6,7 @@
         xmlns:Custom="http://schemas.microsoft.com/winfx/2006/xaml/presentation/ribbon"
         xmlns:System="clr-namespace:System;assembly=mscorlib"
         x:Class="Minecraft_Server_Control_Panel.MainWindow"
-        mc:Ignorable="d"
+        mc:Ignorable="d" Loaded="Init"
         Title="MSCP （Minecraft Server Control Panel）" Height="486" Width="702">
     <Grid>
         <Grid.RowDefinitions>
@@ -37,7 +37,7 @@
                         <Custom:RibbonButton Label="ホワイトリスト" LargeImageSource="resources/list-white.png" />
                     </Custom:RibbonGroup>
                     <Custom:RibbonGroup>
-                        <Custom:RibbonButton Label="設定" LargeImageSource="resources/config.png" />
+                        <Custom:RibbonButton Label="設定" LargeImageSource="resources/config.png" Click="OpenConfig" />
                     </Custom:RibbonGroup>
                 </Custom:RibbonTab>
                 <Custom:RibbonTab Header="プレイヤー">
